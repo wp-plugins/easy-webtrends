@@ -1,0 +1,20 @@
+/**
+ * Easy Webtrends Stylesheet
+ * 
+ * @version 1.0.0
+ * @since 1.0.0
+ */
+
+.error {color: #ff0000;}
+
+#content {
+	float: left;
+	width: 70%;
+}
+
+#sidebar {
+	float: right;
+	width: 25%;
+}
+
+.widget {padding: 0 1em;}
