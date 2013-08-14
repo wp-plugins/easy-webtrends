@@ -64,6 +64,9 @@ function webtrends_tracking_code() {
 			//Fix ampersands (& to &amp;)
 			$tracking_code = str_replace ( '&' , '&amp;' , $tracking_code );
 
+			//Cleanup 
+			$tracking_code = str_replace ( 'amp;amp;' , 'amp;' , $tracking_code );
+
 		//Return tracking code
 		echo $tracking_code;
 
