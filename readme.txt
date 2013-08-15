@@ -4,7 +4,7 @@ Donate link: http://www.wpbackitup.com/plugins/easy-webtrends
 Tags: webtrends, analytics, tracking, tagging, monitoring, traffic, monitor
 Requires at least: 3.5.0
 Tested up to: 3.6.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Quickly tag your sites and track your visitors using Webtrends.
 
@@ -33,5 +33,25 @@ The plugin is simple to install:
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed error with webtrends.min.js not loading
+
 = 1.0 =
-* Initial release
+* Initial releasering.
+
+== Installation ==
+
+The plugin is simple to install:
+
+1. Download 'easy-webtrends.zip'
+1. Unzip
+1. Upload 'easy-webtrends' directory to your '/wp-content/plugins' directory
+1. Go to the plugin management page and enable the plugin
+
+== Changelog ==
+
+= 1.0.1 =
+* Fixed error with webtrends.min.js not loading
+
+= 1.0 =
+* Initial releasering.
