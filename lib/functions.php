@@ -52,9 +52,9 @@ function webtrends_tracking_code() {
 			
 		//modify tracking code for site 
 		if(strstr($tracking_code, 'Version: 9')) {
-			str_replace("/scripts/webtrends.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v9.js', $tracking_code);
+			$tracking_code = str_replace("/scripts/webtrends.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v9.js', $tracking_code);
 		} else {
-			str_replace("/scripts/webtrends.min.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v10.js', $tracking_code);
+			$tracking_code = str_replace("/scripts/webtrends.min.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.min.js', $tracking_code);
 		}
 
 			//Insert opening and clsoing script tags
