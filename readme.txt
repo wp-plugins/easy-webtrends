@@ -22,6 +22,11 @@ Through the Easy Webtrends options panel, you can quickly tag your entire site a
 = Load custom tags into your posts and pages =
 As well as global tags across your entire site, you can also generate custom tags based on a URL-string match which will load custom tags if the URL of a given page matches a custom rule.
 
+== Screenshots ==
+1. After installing the Easy Webtrends and activating on your site, browse to Settings > Easy Webtrends.
+2. From the Easy Webtrends settings interface, paste in your Webtrends tracking code and configure the various settings to your liking.
+3. Optionally, enable specific tracking tags to load, or disable tracking altogether, when your page URL contains specific strings.
+
 == Installation ==
 
 The plugin is simple to install:
