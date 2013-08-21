@@ -52,9 +52,9 @@ function webtrends_tracking_code() {
 			
 		//modify tracking code for site 
 		if(strstr($tracking_code, 'Version: 9')) {
-			str_replace("/scripts/webtrends.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v9.js', $tracking_code);
+			$tracking_code = str_replace("/scripts/webtrends.js", plugins_url( '/js/webtrends.v9.js' , dirname(__FILE__) ), $tracking_code);
 		} else {
-			str_replace("/scripts/webtrends.min.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v10.js', $tracking_code);
+			$tracking_code = str_replace("/scripts/webtrends.min.js", plugins_url( '/js/webtrends.min.js' , dirname(__FILE__) ), $tracking_code);
 		}
 
 			//Insert opening and clsoing script tags
@@ -63,6 +63,9 @@ function webtrends_tracking_code() {
 			
 			//Fix ampersands (& to &amp;)
 			$tracking_code = str_replace ( '&' , '&amp;' , $tracking_code );
+
+			//Cleanup 
+			$tracking_code = str_replace ( 'amp;amp;' , 'amp;' , $tracking_code );
 
 		//Return tracking code
 		echo $tracking_code;

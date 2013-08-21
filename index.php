@@ -3,7 +3,7 @@
 Plugin Name: Easy Webtrends
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
-Version: 1.0.0
+Version: 1.0.3
 Author: John Peden
 Author URI: http://www.johncpeden.com
 License: GPL3
