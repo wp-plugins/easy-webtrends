@@ -10,91 +10,85 @@
  */
 
 function load_webtrends_javascript() {
-	global $EasyWebtrends;
-	$tracking_code = $EasyWebtrends->get_option( 'tracking_code' );
-	//if user has specified tracking code
-		if(strstr($tracking_code, 'Version: 9')) {
-			$version = '9';
-		} else {
-			$version = '10';
-		}
-	$location = $EasyWebtrends->get_option( 'script_location' );
-	if($location == 'header') {
-		wp_enqueue_script('webtrends_js' , EASYWEBTRENDS_URLPATH .'/js/webtrends.v' .$version .'.js' , array( 'jquery' ), $version, false );
-	} if($location =='footer') {
-		wp_enqueue_script('webtrends_js' , EASYWEBTRENDS_URLPATH .'/js/webtrends.v' .$version .'.js' , array( 'jquery' ), $version, true);
-	}
+	wp_enqueue_script('webtrends_js' , EASYWEBTRENDS_URLPATH .'/js/webtrends.min.js' , array( 'jquery' ), '1.0', false);
 }
 add_action('wp_enqueue_scripts', 'load_webtrends_javascript');
 
 function webtrends_tracking_code() {
 	global $EasyWebtrends;
-	$tracking_code = stripslashes( $EasyWebtrends->get_option( 'tracking_code' ) );
-	
-	//if user has specified tracking code
-	if(strstr($tracking_code, '<!-- START OF SmartSource Data Collector TAG')) {
 
-		//Get current URL
-		$current_url = $_SERVER['REQUEST_URI'];
-	
-		//Return false if the URL contains a disbaled string
-		$disable = $EasyWebtrends->get_option( 'disable' );
-		if ($disable != '') {
-			$disable = str_replace(' ', '', $disable);
-			$disable_strings = explode(",", $disable);
+	//Get current URL
+	$current_url = $_SERVER['REQUEST_URI'];
 
-			foreach ($disable_strings as $disable_string) {
-				if( strstr($current_url, $disable_string) ) {
-					return false;
-				}
+	//Return false if the URL contains a disbaled string
+	$disable = $EasyWebtrends->get_option( 'disable' );
+	if ($disable != '') {
+		$disable = str_replace(' ', '', $disable);
+		$disable_strings = explode(",", $disable);
+
+		foreach ($disable_strings as $disable_string) {
+			if( strstr($current_url, $disable_string) ) {
+				return false;
 			}
 		}
-			
-		//modify tracking code for site 
-		if(strstr($tracking_code, 'Version: 9')) {
-			str_replace("/scripts/webtrends.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v9.js', $tracking_code);
-		} else {
-			str_replace("/scripts/webtrends.min.js", EASYWEBTRENDS_URLPATH .'/js/webtrends.v10.js', $tracking_code);
-		}
-
-			//Insert opening and clsoing script tags
-			$tracking_code = str_replace ( 'window.webtrendsAsyncInit' , '<script>window.webtrendsAsyncInit' , $tracking_code );
-			$tracking_code = str_replace ( '<img alt="dcsimg"' , '</script><img alt="dcsimg"' , $tracking_code );
-			
-			//Fix ampersands (& to &amp;)
-			$tracking_code = str_replace ( '&' , '&amp;' , $tracking_code );
-
-		//Return tracking code
-		echo $tracking_code;
-
-		//Load global tags
-		$tags = $EasyWebtrends->get_option( 'tags' );
-
-		//Load custom tags
-		for ($i = 1; $i <= $EasyWebtrends->get_option( 'custom_rules' ); $i++ ) {
-
-			//Get target URL string
-	        $url_string = $EasyWebtrends->get_option( 'custom_rule_' .$i .'_string' );
-
-	        //Get custom tag
-	        $custom_tag = $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' );
-
-	        //If current URL contains string, add tag
-	        if( strstr($current_url, $url_string) ) {
-	        	$tags .= ',' .$custom_tag; 
-	        }
-	    }
-
-		//Strip spaces from tags
-		$tags = str_replace(' ', '', $tags);
-
-		//Replace commas with semi-colon
-		$tags = str_replace(',', ';', $tags);
-
-		//Return tag script
-		$webtrends_id_tag = "\n<!--Load Webtrends ID tag-->\n\t<meta name=\"WT.sp\" content=\"" .$tags. "\"/>\n<!--End Webtrends ID tag-->\n\n";
-		echo $webtrends_id_tag;
 	}
+
+	/* Load tracking code */ ?>
+	<!-- START OF SmartSource Data Collector TAG v10.2.29 -->
+	<!-- Copyright (c) 2012 Webtrends Inc.  All rights reserved. -->
+	<script>
+	window.webtrendsAsyncInit=function(){
+	    var dcs=new Webtrends.dcs().init({
+	        dcsid:"dcsozkqgb00000sh0y1unaabw_9e3r",
+	        domain:"statse.webtrendslive.com",
+	        timezone:<?php echo get_option('gmt_offset'); ?>,
+	        i18n:true,
+	        adimpressions:true,
+	        adsparam:"WT.ac",
+	        download:true,
+	        downloadtypes:"xls,doc,pdf,txt,csv,zip,docx,xlsx,rar,gzip,swf,mid,mp3",
+	        splitvalue:"<?php bloginfo('name'); ?>",
+	        plugins:{
+	            hm:{src:"//s.webtrends.com/js/webtrends.hm.js"}
+	        }
+	        }).track();
+	};
+	(function(){
+
+	    var s=document.createElement("script"); s.async=true; s.src="<?php echo plugins_url( '/js/webtrends.min.js' , dirname(__FILE__) ); ?>";   
+	    var s2=document.getElementsByTagName("script")[0]; s2.parentNode.insertBefore(s,s2);
+	}());
+	</script>
+	<noscript><img alt="dcsimg" id="dcsimg" width="1" height="1" src="//statse.webtrendslive.com/dcsozkqgb00000sh0y1unaabw_9e3r/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=10.2.55&amp;dcssip=<?php echo site_url(); ?>&amp;WP.sp=<?php bloginfo('name'); ?>"/></noscript>
+	<!-- END OF SmartSource Data Collector TAG v10.2.29 -->
+
+	<?php //Load global tags
+	$tags = $EasyWebtrends->get_option( 'tags' );
+
+	//Load custom tags
+	for ($i = 1; $i <= $EasyWebtrends->get_option( 'custom_rules' ); $i++ ) {
+
+		//Get target URL string
+        $url_string = $EasyWebtrends->get_option( 'custom_rule_' .$i .'_string' );
+
+        //Get custom tag
+        $custom_tag = $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' );
+
+        //If current URL contains string, add tag
+        if( strstr($current_url, $url_string) ) {
+        	$tags .= ',' .$custom_tag; 
+        }
+    }
+
+	//Strip spaces from tags
+	$tags = str_replace(' ', '', $tags);
+
+	//Replace commas with semi-colon
+	$tags = str_replace(',', ';', $tags);
+
+	//Return tag script
+	$webtrends_id_tag = "\n<!--Load Webtrends ID tag-->\n\t<meta name=\"WT.sp\" content=\"" .$tags. "\"/>\n<!--End Webtrends ID tag-->\n\n";
+	echo $webtrends_id_tag;
 }
 
 //load tracking code

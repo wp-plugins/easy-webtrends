@@ -9,7 +9,7 @@
     <form action="" method="post" id="<?php echo $namespace; ?>-form">
     <div id="content">
         <?php wp_nonce_field( $namespace . "-update-options" ); ?>
-        <h3><?php _e('Tracking Code', $namespace); ?></h3>
+    <?php /* <h3><?php _e('Tracking Code', $namespace); ?></h3>
         <?php //modify tracking code before output
             $tracking_code = stripslashes($this->get_option( 'tracking_code' ));
             
@@ -25,16 +25,16 @@
         <h3><?php _e('Version', $namespace); ?></h3>
         <p><input type="radio" name="data[tracking_code_version]" value="/js/webtrends.v9.js" <?php if($this->get_option( 'tracking_code_version' ) == "/js/webtrends.v9.js") echo 'checked'; ?> /> <label><?php _e('v9', $namespace); ?></label></p>
         <p><input type="radio" name="data[tracking_code_version]" value="/js/webtrends.v10.js" <?php if($this->get_option( 'tracking_code_version' ) == "/js/webtrends.v10.js") echo 'checked'; ?> /> <label><?php _e('v10', $namespace); ?></label><p>
-        
+        */ ?>
         <h3><?php _e('Location', $namespace); ?></h3>
         <p><input type="radio" name="data[script_location]" value="header" <?php if($this->get_option( 'script_location' ) == 'header') echo 'checked'; ?>> <label><?php _e('Header', $namespace); ?></label></p>
         <p><input type="radio" name="data[script_location]" value="footer" <?php if($this->get_option( 'script_location' ) == 'footer') echo 'checked'; ?>> <label><?php _e('Footer', $namespace); ?></label></p>
         
         <h3><?php _e('Tags', $namespace); ?></h3>
+        <?php $siteurl = get_site_url(); ?>
         <p><label><?php _e('Tag all pages with:', $namespace); ?></label></p>
-        <p><input type="text" name="data[tags]" value="<?php echo $this->get_option( 'tags' ); ?>" /> <em><?php _e('Separate multiple tags using a comma', $namespace); ?></em></p>
+        <p><input type="text" name="data[tags]" value="<?php echo $this->get_option( 'tags', $siteurl ); ?>" /> <em><?php _e('Separate multiple tags using a comma', $namespace); ?></em></p>
         
-        <h2><?php _e('Optional', $namespace); ?></h2>
         <h3><?php _e('Disable Tracking', $namespace); ?></h3>
         <p><label><?php _e('Do not load tracking scripts if URL contains:', $namespace); ?></label></p>
         <p><input type="text" name="data[disable]" value="<?php echo $this->get_option( 'disable' ); ?>" /> <em><?php _e('Separate multiple keywords using a comma', $namespace); ?></em></p>
