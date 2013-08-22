@@ -4,7 +4,7 @@ Donate link: http://www.wpbackitup.com/plugins/easy-webtrends
 Tags: webtrends, analytics, tracking, tagging, monitoring, traffic, monitor
 Requires at least: 3.5.0
 Tested up to: 3.6.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Quickly tag your sites and track your visitors using Webtrends.
 
@@ -12,9 +12,6 @@ Quickly tag your sites and track your visitors using Webtrends.
 
 = Teack your site with Webtrends =
 Easy Webtrends makes using Webtrends with Wordpress easy and straightforward. Once the plugin has been enabled, you can quickly load your tracking scripts through the Wordpress dashboard and start monitoring your traffic.
-
-= Use version Webtrends 9 or 10 = 
-Easy Webtrends is compatible with both Webtrends v9 and v10. Simply generate your tracking code using the tag builder and paste the generated script into the Easy Webtrends interface. The plugin will load the correct javascript file and you'll be ready to go in seconds.
 
 = Quickly tag your entire site =
 Through the Easy Webtrends options panel, you can quickly tag your entire site and the plugin will load these tags on each and every page.
@@ -38,6 +35,9 @@ The plugin is simple to install:
 
 == Upgrade Notice ==
 
+= 1.0.4 =
+* Critical: Tracking code does not load properly without this update
+
 = 1.0.3 =
 * Recommended: WPMS domain mapping will not work without this update
 
@@ -60,6 +60,9 @@ The plugin is simple to install:
 1. Go to the plugin management page and enable the plugin
 
 == Changelog ==
+
+= 1.0.4 =
+* Hard coded tracking code and removed support for v9.
 
 = 1.0.3 =
 * Modified URL from which webtrends.js is loaded
