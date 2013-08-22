@@ -3,7 +3,7 @@
 Plugin Name: Easy Webtrends
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
-Version: 1.0.4
+Version: 1.0.5
 Author: John Peden
 Author URI: http://www.johncpeden.com
 License: GPL3
@@ -40,27 +40,7 @@ class EasyWebtrends {
         'tags' => 'Sitename',
         'disable' => '',
         'presstrends' => "enabled",
-        'custom_rules' => "1",
-        'custom_rule_1_string',
-        'custom_rule_1_tag',
-        'custom_rule_2_string',
-        'custom_rule_2_tag',
-        'custom_rule_3_string',
-        'custom_rule_3_tag',
-        'custom_rule_4_string',
-        'custom_rule_4_tag',
-        'custom_rule_5_string',
-        'custom_rule_5_tag',
-        'custom_rule_6_string',
-        'custom_rule_6_tag',
-        'custom_rule_7_string',
-        'custom_rule_7_tag',
-        'custom_rule_8_string',
-        'custom_rule_8_tag',
-        'custom_rule_9_string',
-        'custom_rule_9_tag',
-        'custom_rule_10_string',
-        'custom_rule_10_tag'
+        'custom_rules' => "1"
     );
     
     /**
@@ -338,6 +318,25 @@ class EasyWebtrends {
     function wp_register_scripts() {
         // Admin JavaScript
         wp_register_script( "{$this->namespace}-admin", EASYWEBTRENDS_URLPATH . "/js/admin.js", array( 'jquery' ), $this->version, true );
+    }
+    
+    /**
+     * Register styles used by this plugin for enqueuing elsewhere
+     * 
+     * @uses wp_register_style()
+     */
+    function wp_register_styles() {
+        // Admin Stylesheet
+        wp_register_style( "{$this->namespace}-admin", EASYWEBTRENDS_URLPATH . "/css/admin.css", array(), $this->version, 'screen' );
+    }
+}
+if( !isset( $EasyWebtrends ) ) {
+	EasyWebtrends::instance();
+}
+
+register_activation_hook( __FILE__, array( 'EasyWebtrends', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'EasyWebtrends', 'deactivate' ) );
+min.js", array( 'jquery' ), $this->version, true );
     }
     
     /**
