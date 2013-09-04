@@ -102,7 +102,7 @@ if (!strpos($url,"solas-lite.britishcouncil.net")) {
 }
 
 //load presstrends
-function load_presstrends() {
+function webtrends_load_presstrends() {
 	global $EasyWebtrends;
 	if($EasyWebtrends->get_option( 'presstrends' ) == 'enabled') {
 		// PressTrends Account API Key
@@ -161,20 +161,4 @@ function load_presstrends() {
 		}
 	}
 }
-add_action('admin_init', 'load_presstrends');
-
-//Load tracking tags to all pages
-
-//Load custom tags as custom meta based on rules
-	//if URL contains <string>
-	//load tag <tag>
-
-/*
-//load webtrends_tags
-function webtrends_tags() {
-	echo 'WEBTRENDS TAGS';
-	//echo "<!--Load Webtrends ID tag-->\n";
-	//echo "\t<meta name=\"WT.sp\" content=\"" .get_bloginfo('name') ."\"/>\n";
-}
-//add_action('wp_head','webtrends_tags');
-*/
+add_action('admin_init', 'webtrends_load_presstrends');
