@@ -35,13 +35,13 @@
         <p><label><?php _e('Tag all pages with:', $namespace); ?></label></p>
         <p><input type="text" name="data[tags]" value="<?php echo $this->get_option( 'tags', $siteurl ); ?>" /> <em><?php _e('Separate multiple tags using a comma', $namespace); ?></em></p>
         
-        <h3><?php _e('Disable Tracking', $namespace); ?></h3>
+        <h3><?php _e('Disable Tracking', $namespace); ?> (<?php _e('Optional', $namespace); ?>)</h3>
         <p><label><?php _e('Do not load tracking scripts if URL contains:', $namespace); ?></label></p>
         <p><input type="text" name="data[disable]" value="<?php echo $this->get_option( 'disable' ); ?>" /> <em><?php _e('Separate multiple keywords using a comma', $namespace); ?></em></p>
         
-        <h3><?php _e('Custom Rules', $namespace); ?></h3>
+        <h3><?php _e('Custom Rules', $namespace); ?> (<?php _e('Optional', $namespace); ?>)</h3>
         <p><?php _e('These rules create a custom meta tag on all your posts/pages that match each rule. They can be manually overridden on each individual page/post.', $namespace); ?></p>
-        <p><?php _e('Number of custom rules', $namespace); ?> <select name="data[custom_rules]"><?php for ($i = 1; $i <= 10; $i++ ) {
+        <p><?php _e('Number of custom rules', $namespace); ?> <select name="data[custom_rules]"><?php for ($i = 1; $i <= 40; $i++ ) {
             if ($i == $this->get_option( 'custom_rules' )) {
                 echo '<option selected>' .$i .'</option>';
             } else {
