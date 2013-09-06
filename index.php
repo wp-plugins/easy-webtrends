@@ -336,22 +336,3 @@ if( !isset( $EasyWebtrends ) ) {
 
 register_activation_hook( __FILE__, array( 'EasyWebtrends', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'EasyWebtrends', 'deactivate' ) );
-.js", array( 'jquery' ), $this->version, true );
-    }
-    
-    /**
-     * Register styles used by this plugin for enqueuing elsewhere
-     * 
-     * @uses wp_register_style()
-     */
-    function wp_register_styles() {
-        // Admin Stylesheet
-        wp_register_style( "{$this->namespace}-admin", EASYWEBTRENDS_URLPATH . "/css/admin.css", array(), $this->version, 'screen' );
-    }
-}
-if( !isset( $EasyWebtrends ) ) {
-	EasyWebtrends::instance();
-}
-
-register_activation_hook( __FILE__, array( 'EasyWebtrends', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'EasyWebtrends', 'deactivate' ) );
