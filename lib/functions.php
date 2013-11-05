@@ -20,9 +20,9 @@ function webtrends_tracking_code() {
 	//Get current URL
 	$current_url = $_SERVER['REQUEST_URI'];
 
-	//Return false if the URL contains a disbaled string
-	$disable = $EasyWebtrends->get_option( 'disable' );
-	if ($disable != '') {
+	//Return false if the URL contains a disabled string
+	$disable = stripslashes( $EasyWebtrends->get_option( 'disable' ) );
+	if ( ! empty( $disable ) ) {
 		$disable = str_replace(' ', '', $disable);
 		$disable_strings = explode(",", $disable);
 
@@ -59,26 +59,26 @@ function webtrends_tracking_code() {
 	    var s2=document.getElementsByTagName("script")[0]; s2.parentNode.insertBefore(s,s2);
 	}());
 	</script>
-	<noscript><img alt="dcsimg" id="dcsimg" width="1" height="1" src="//statse.webtrendslive.com/dcsozkqgb00000sh0y1unaabw_9e3r/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=10.2.55&amp;dcssip=<?php echo site_url(); ?>&amp;WP.sp=<?php bloginfo('name'); ?>"/></noscript>
+	<noscript><img alt="dcsimg" id="dcsimg" width="1" height="1" src="//statse.webtrendslive.com/dcsozkqgb00000sh0y1unaabw_9e3r/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=10.2.55&amp;dcssip=<?php echo site_url(); ?>&amp;WP.sp=<?php esc_attr( bloginfo('name') ); ?>"/></noscript>
 	<!-- END OF SmartSource Data Collector TAG v10.2.29 -->
 
 	<?php //Load global tags
-	$tags = $EasyWebtrends->get_option( 'tags' );
+	$tags = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'tags' ) ) );
 
 	//Load custom tags
-	for ($i = 1; $i <= $EasyWebtrends->get_option( 'custom_rules' ); $i++ ) {
+	for ($i = 1; $i <= intval( $EasyWebtrends->get_option( 'custom_rules' ) ); $i++ ) {
 
 		//Get target URL string
-        $url_string = $EasyWebtrends->get_option( 'custom_rule_' .$i .'_string' );
+		$url_string = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_string' ) ) );
 
-        //Get custom tag
-        $custom_tag = $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' );
+		//Get custom tag
+		$custom_tag = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' ) ) );
 
-        //If current URL contains string, add tag
-        if( strstr($current_url, $url_string) ) {
-        	$tags .= ',' .$custom_tag; 
-        }
-    }
+		//If current URL contains string, add tag
+		if( strstr($current_url, $url_string) ) {
+			$tags .= ',' .$custom_tag;
+		}
+   }
 
 	//Strip spaces from tags
 	$tags = str_replace(' ', '', $tags);
@@ -92,13 +92,12 @@ function webtrends_tracking_code() {
 }
 
 //load tracking code
+// josh@10up.com: removed check for solas-lite.britishcouncil.net; add a filter to accomplish this
 $url = site_url();
-if (!strpos($url,"solas-lite.britishcouncil.net")) {
-	if($this->get_option( 'script_location' ) == 'header') {
-		add_action('wp_head', 'webtrends_tracking_code');
-	} else {
-		add_action('wp_footer', 'webtrends_tracking_code');
-	} 	
+if($this->get_option( 'script_location' ) == 'header') {
+	add_action('wp_head', 'webtrends_tracking_code');
+} else {
+	add_action('wp_footer', 'webtrends_tracking_code');
 }
 
 //load presstrends
