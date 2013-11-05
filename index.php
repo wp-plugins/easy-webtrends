@@ -3,7 +3,7 @@
 Plugin Name: Easy Webtrends
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
-Version: 1.0.6
+Version: 1.0.7
 Author: John Peden
 Author URI: http://www.johncpeden.com
 License: GPL3
@@ -55,10 +55,8 @@ class EasyWebtrends {
         $this->option_name = '_' . $this->namespace . '--options';
 		
         // Load all library files used by this plugin
-        $libs = glob( EASYWEBTRENDS_DIRNAME . '/lib/*.php' );
-        foreach( $libs as $lib ) {
-            include_once( $lib );
-        }
+				include_once( EASYWEBTRENDS_DIRNAME . '/lib/constants.php' );
+				include_once( EASYWEBTRENDS_DIRNAME . '/lib/functions.php' );
         
         /**
          * Make this plugin available for translation.
@@ -118,7 +116,8 @@ class EasyWebtrends {
             update_option( $this->option_name, $data );
             
             // Redirect back to the options page with the message flag to show the saved message
-            wp_safe_redirect( $_REQUEST['_wp_http_referer'] . '&message=1' );
+            $redirect_url = explode( '&', esc_url( $_REQUEST['_wp_http_referer'] ) );
+            wp_safe_redirect( $redirect_url[0] . '&message=1' );
             exit;
         }
     }
