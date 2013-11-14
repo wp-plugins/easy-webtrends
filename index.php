@@ -3,7 +3,7 @@
 Plugin Name: Easy Webtrends
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
-Version: 1.0.6
+Version: 1.0.8
 Author: John Peden
 Author URI: http://www.johncpeden.com
 License: GPL3
@@ -55,10 +55,8 @@ class EasyWebtrends {
         $this->option_name = '_' . $this->namespace . '--options';
 		
         // Load all library files used by this plugin
-        $libs = glob( EASYWEBTRENDS_DIRNAME . '/lib/*.php' );
-        foreach( $libs as $lib ) {
-            include_once( $lib );
-        }
+				include_once( EASYWEBTRENDS_PATH . '/lib/constants.php' );
+				include_once( EASYWEBTRENDS_PATH . '/lib/functions.php' );
         
         /**
          * Make this plugin available for translation.
@@ -118,7 +116,8 @@ class EasyWebtrends {
             update_option( $this->option_name, $data );
             
             // Redirect back to the options page with the message flag to show the saved message
-            wp_safe_redirect( $_REQUEST['_wp_http_referer'] . '&message=1' );
+            $redirect_url = explode( '&', esc_url( $_REQUEST['_wp_http_referer'] ) );
+            wp_safe_redirect( $redirect_url[0] . '&message=1' );
             exit;
         }
     }
@@ -191,7 +190,7 @@ class EasyWebtrends {
         $page_title = $this->friendly_name . ' Options';
         $namespace = $this->namespace;
         
-        include( EASYWEBTRENDS_DIRNAME . "/views/options.php" );
+        include( EASYWEBTRENDS_PATH . "/views/options.php" );
     }
     
     /**
@@ -267,7 +266,7 @@ class EasyWebtrends {
 	 * @param string $file The name of the file being processed in the filter
 	 */
 	function plugin_action_links( $links, $file ) {
-		if( $file == plugin_basename( EASYWEBTRENDS_DIRNAME . '/' . basename( __FILE__ ) ) ) {
+		if( $file == plugin_basename( EASYWEBTRENDS_PATH . '/' . basename( __FILE__ ) ) ) {
             $old_links = $links;
             $new_links = array(
                 "settings" => '<a href="options-general.php?page=' . $this->namespace . '">' . __( 'Settings' ) . '</a>'
@@ -332,25 +331,6 @@ class EasyWebtrends {
 }
 if( !isset( $EasyWebtrends ) ) {
     EasyWebtrends::instance();
-}
-
-register_activation_hook( __FILE__, array( 'EasyWebtrends', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'EasyWebtrends', 'deactivate' ) );
-.js", array( 'jquery' ), $this->version, true );
-    }
-    
-    /**
-     * Register styles used by this plugin for enqueuing elsewhere
-     * 
-     * @uses wp_register_style()
-     */
-    function wp_register_styles() {
-        // Admin Stylesheet
-        wp_register_style( "{$this->namespace}-admin", EASYWEBTRENDS_URLPATH . "/css/admin.css", array(), $this->version, 'screen' );
-    }
-}
-if( !isset( $EasyWebtrends ) ) {
-	EasyWebtrends::instance();
 }
 
 register_activation_hook( __FILE__, array( 'EasyWebtrends', 'activate' ) );
