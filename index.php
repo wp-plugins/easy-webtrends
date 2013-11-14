@@ -3,7 +3,7 @@
 Plugin Name: Easy Webtrends
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
-Version: 1.0.7
+Version: 1.0.8
 Author: John Peden
 Author URI: http://www.johncpeden.com
 License: GPL3
@@ -55,8 +55,8 @@ class EasyWebtrends {
         $this->option_name = '_' . $this->namespace . '--options';
 		
         // Load all library files used by this plugin
-				include_once( EASYWEBTRENDS_DIRNAME . '/lib/constants.php' );
-				include_once( EASYWEBTRENDS_DIRNAME . '/lib/functions.php' );
+				include_once( EASYWEBTRENDS_PATH . '/lib/constants.php' );
+				include_once( EASYWEBTRENDS_PATH . '/lib/functions.php' );
         
         /**
          * Make this plugin available for translation.
@@ -190,7 +190,7 @@ class EasyWebtrends {
         $page_title = $this->friendly_name . ' Options';
         $namespace = $this->namespace;
         
-        include( EASYWEBTRENDS_DIRNAME . "/views/options.php" );
+        include( EASYWEBTRENDS_PATH . "/views/options.php" );
     }
     
     /**
@@ -266,7 +266,7 @@ class EasyWebtrends {
 	 * @param string $file The name of the file being processed in the filter
 	 */
 	function plugin_action_links( $links, $file ) {
-		if( $file == plugin_basename( EASYWEBTRENDS_DIRNAME . '/' . basename( __FILE__ ) ) ) {
+		if( $file == plugin_basename( EASYWEBTRENDS_PATH . '/' . basename( __FILE__ ) ) ) {
             $old_links = $links;
             $new_links = array(
                 "settings" => '<a href="options-general.php?page=' . $this->namespace . '">' . __( 'Settings' ) . '</a>'
