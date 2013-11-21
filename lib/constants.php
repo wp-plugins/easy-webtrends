@@ -5,12 +5,12 @@
  * @package EasyWebtrends
  * 
  * @author jcpeden
- * @version 1.0.8
+ * @version 1.0.9
  * @since 1.0.0
  */
 
 // The current version of this plugin
-if( !defined( 'EASYWEBTRENDS_VERSION' ) ) define( 'EASYWEBTRENDS_VERSION', '1.0.8' );
+if( !defined( 'EASYWEBTRENDS_VERSION' ) ) define( 'EASYWEBTRENDS_VERSION', '1.0.9' );
 
 // The directory the plugin resides in
 if( !defined( 'EASYWEBTRENDS_PATH' ) ) define( 'EASYWEBTRENDS_PATH', dirname( dirname( __FILE__ ) ) );

@@ -75,8 +75,10 @@ function webtrends_tracking_code() {
 		$custom_tag = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' ) ) );
 
 		//If current URL contains string, add tag
-		if( strstr($current_url, $url_string) ) {
-			$tags .= ',' .$custom_tag;
+		if ($url_string != '') {
+			if( strstr($current_url, $url_string) ) {
+				$tags .= ',' .$custom_tag;
+			}
 		}
    }
 
