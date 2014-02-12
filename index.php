@@ -3,7 +3,7 @@
 Plugin Name: Easy Webtrends
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
-Version: 1.0.9
+Version: 1.1.0
 Author: John Peden
 Author URI: http://www.johncpeden.com
 License: GPL3
@@ -35,11 +35,9 @@ class EasyWebtrends {
     // Default plugin options
     var $defaults = array(
         'tracking_code' => "Please enter your tracking code here...",
-        'tracking_code_version' => "/js/webtrends.v9.js",
         'script_location' => "header",
         'tags' => 'Sitename',
         'disable' => '',
-        'presstrends' => "enabled",
         'custom_rules' => "1"
     );
     
@@ -199,7 +197,6 @@ class EasyWebtrends {
      * @uses wp_enqueue_script()
      */
     function admin_print_scripts() {
-        wp_enqueue_script( "{$this->namespace}-admin" );
     }
     
     /**
@@ -315,8 +312,6 @@ class EasyWebtrends {
      * @uses wp_register_script()
      */
     function wp_register_scripts() {
-        // Admin JavaScript
-        wp_register_script( "{$this->namespace}-admin", EASYWEBTRENDS_URLPATH . "/js/admin.js", array( 'jquery' ), $this->version, true );
     }
     
     /**

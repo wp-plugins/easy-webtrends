@@ -54,15 +54,6 @@
             <h2 class="promo"><?php esc_html_e('Need support?', $namespace); ?></h2>
             <p><?php esc_html_e('If you are having problems with this plugin please talk about them in the', $namespace); ?> <a href="http://wordpress.org/support/plugin/easy-webtrends"><?php esc_html_e('support forum', $namespace); ?></a>.</p>
         </div>
-        <div class="widget">
-            <h2 class="promo"><?php esc_html_e('Presstrends', $namespace); ?></h3>
-                <p><?php esc_html_e('Help to improve Easy Webtrends by enabling', $namespace); ?> <a href="http://www.presstrends.io" target="_blank">Presstrends</a>.</p>
-            <p><input type="radio" name="data[presstrends]" value="enabled" <?php if($this->get_option( 'presstrends' ) == 'enabled') echo 'checked'; ?>> <label><?php esc_html_e('Enable', $namespace); ?></label></p>
-            <p><input type="radio" name="data[presstrends]" value="disabled" <?php if($this->get_option( 'presstrends' ) == 'disabled') echo 'checked'; ?>> <label><?php esc_html_e('Disable', $namespace); ?></label></p>
-            <p class="submit">
-            <input type="submit" name="Submit" class="button-primary" value="<?php esc_html_e( "Save Changes", $namespace ) ?>" />
-        </p>
-        </div>
     </div>
     </form>
 </div>
