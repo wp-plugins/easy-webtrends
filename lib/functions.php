@@ -64,30 +64,6 @@ function webtrends_tracking_code() {
 
 	<?php //Load global tags
 	$tags = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'tags' ) ) );
-
-	//Load custom tags
-	for ($i = 1; $i <= intval( $EasyWebtrends->get_option( 'custom_rules' ) ); $i++ ) {
-
-		//Get target URL string
-		$url_string = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_string' ) ) );
-
-		//Get custom tag
-		$custom_tag = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' ) ) );
-
-		//If current URL contains string, add tag
-		if ($url_string != '') {
-			if( strstr($current_url, $url_string) ) {
-				$tags .= ',' .$custom_tag;
-			}
-		}
-   }
-
-	//Strip spaces from tags
-	$tags = str_replace(' ', '', $tags);
-
-	//Replace commas with semi-colon
-	$tags = str_replace(',', ';', $tags);
-
 	//Return tag script
 	$webtrends_id_tag = "\n<!--Load Webtrends ID tag-->\n\t<meta name=\"WT.sp\" content=\"" .$tags. "\"/>\n<!--End Webtrends ID tag-->\n\n";
 	echo $webtrends_id_tag;

@@ -53,8 +53,10 @@ class EasyWebtrends {
         $this->option_name = '_' . $this->namespace . '--options';
 		
         // Load all library files used by this plugin
-				include_once( EASYWEBTRENDS_PATH . '/lib/constants.php' );
-				include_once( EASYWEBTRENDS_PATH . '/lib/functions.php' );
+        $libs = glob( EASYWEBTRENDS_PATH . '/lib/*.php' );
+        foreach( $libs as $lib ) {
+            include_once( $lib );
+        }
         
         /**
          * Make this plugin available for translation.
