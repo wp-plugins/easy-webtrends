@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Easy Webtrends
+Plugin Name: Easy Webtrends Premium
 Plugin URI: http://www.wpbackitup.com/plugins/easy-webtrends
 Description: Track your sites using Webtrends.
 Version: 1.1.0
@@ -26,12 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Include constants file
 require_once( dirname( __FILE__ ) . '/lib/constants.php' );
+require_once( EASYWEBTRENDS_PATH . '/lib/stripe/config.php' );
 
 class EasyWebtrends {
-    var $namespace = "easy-webtrends";
-    var $friendly_name = "Easy Webtrends";
+    var $namespace = "easy-webtrends-pro";
+    var $friendly_name = "Easy Webtrends Premium";
     var $version = EASYWEBTRENDS_VERSION;
-    
+    var $stripe = "";
     // Default plugin options
     var $defaults = array(
         'tracking_code' => "Please enter your tracking code here...",
@@ -51,13 +52,14 @@ class EasyWebtrends {
     function __construct() {
         // Name of the option_value to store plugin options in
         $this->option_name = '_' . $this->namespace . '--options';
-		
+        
         // Load all library files used by this plugin
         $libs = glob( EASYWEBTRENDS_PATH . '/lib/*.php' );
         foreach( $libs as $lib ) {
             include_once( $lib );
         }
         
+		$this->stripe = new  EasyWebtrendsStripe( $this->option_name );
         /**
          * Make this plugin available for translation.
          * Translations can be added to the /languages/ directory.
@@ -86,6 +88,8 @@ class EasyWebtrends {
         add_action( 'init', array( &$this, 'wp_register_scripts' ), 1 );
         // Register all Stylesheets for this plugin
         add_action( 'init', array( &$this, 'wp_register_styles' ), 1 );
+        // add message to admin page
+        add_action( 'admin_notices', array( &$this, "admin_notice" ) );
     }
     
     /**
@@ -307,7 +311,22 @@ class EasyWebtrends {
             }
         }
     }
-    
+    /*
+        add notice to admin pages
+    */
+    function admin_notice(){
+        $html = "<div class=\"updated\">
+            <p>%s</p>
+        </div>";
+        $message = "";
+        if( $this->stripe->out_of_date() && !empty( $this->customer_id ) ){
+            $message = $this->stripe->message["expired"];
+        }else if( $this->stripe->rest_number_day() <= 3 && !empty( $this->customer_id ) ){
+            $message = sprintf( $this->stripe->message["warning"], $this->stripe->rest_number_day()  );
+        }
+        if( !empty( $message ) )
+            echo sprintf( $html, $message );
+    }
     /**
      * Register scripts used by this plugin for enqueuing elsewhere
      * 

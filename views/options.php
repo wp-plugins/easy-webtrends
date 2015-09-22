@@ -6,13 +6,15 @@
     <?php if( isset( $_GET['message'] ) ): ?>
         <div id="message" class="updated below-h2"><p><?php esc_html_e('Options successfully updated!', $namespace); ?></p></div>
     <?php endif; ?>
+    <p>&nbsp;</p>
+    <?php include( EASYWEBTRENDS_PATH . "/views/stripe-form.php" ); ?>
     <form action="" method="post" id="<?php echo $namespace; ?>-form">
     <div id="content">
         <?php wp_nonce_field( $namespace . "-update-options" ); ?>
-        
         <?php include( EASYWEBTRENDS_PATH . "/views/option-location.php" ); ?>
         <?php include( EASYWEBTRENDS_PATH . "/views/option-normal.php" ); ?>
         <?php include( EASYWEBTRENDS_PATH . "/views/option-status.php" ); ?>
+        <?php include( EASYWEBTRENDS_PATH . "/views/option-premium.php" ); ?>
         <p class="submit">
             <input type="submit" name="Submit" class="button-primary" value="<?php esc_html_e( "Save Changes", $namespace ) ?>" />
         </p>
