@@ -17,7 +17,6 @@ add_action('wp_enqueue_scripts', 'load_webtrends_javascript');
 function webtrends_tracking_code() {
 	global $EasyWebtrends;
 
-	if( !$EasyWebtrends->stripe->out_of_date() ){
 	//Get current URL
 	$current_url = $_SERVER['REQUEST_URI'];
 
@@ -64,33 +63,10 @@ function webtrends_tracking_code() {
 	<!-- END OF SmartSource Data Collector TAG v10.2.29 -->
 
 	<?php //Load global tags
-	$first_tag = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'tags' ) ) );
-	$tags = array();
-	if( !empty( $first_tag ) ){
-		$tags[] = $first_tag;
-	}
-	//Load custom tags
-	for ($i = 1; $i <= intval( $EasyWebtrends->get_option( 'custom_rules' ) ); $i++ ) {
-
-		//Get target URL string
-		$url_string = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_string' ) ) );
-
-		//Get custom tag
-		$custom_tag = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'custom_rule_' .$i .'_tag' ) ) );
-
-		//If current URL contains string, add tag
-
-		if ($url_string != '') {
-			if( strstr( $url_string , $current_url ) && $url_string != "" ) {
-				$tags[] = $custom_tag;
-			}
-		}
-   }
-	$tags = implode( ";" , $tags );
+	$tags = stripslashes( sanitize_text_field( $EasyWebtrends->get_option( 'tags' ) ) );
 	//Return tag script
 	$webtrends_id_tag = "\n<!--Load Webtrends ID tag-->\n\t<meta name=\"WT.sp\" content=\"" .$tags. "\"/>\n<!--End Webtrends ID tag-->\n\n";
 	echo $webtrends_id_tag;
-	}//endif;
 }
 
 //load tracking code
