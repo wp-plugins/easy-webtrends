@@ -3,8 +3,8 @@ Contributors: jcpeden
 Donate link: http://www.wpbackitup.com/plugins/easy-webtrends
 Tags: webtrends, analytics, tracking, tagging, monitoring, traffic, monitor
 Requires at least: 3.5.0
-Tested up to: 3.7.1
-Stable tag: 1.1.0
+Tested up to: 4.3.1
+Stable tag: 1.1.1
 
 Quickly tag your sites and track your visitors using Webtrends.
 
